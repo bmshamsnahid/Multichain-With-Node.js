@@ -22,10 +22,12 @@ In this article, using multichain, we will create a permissioned blockchain solu
 - Two ubuntu instances (AWS EC2 is used here)
 
 Before we start, please create 2 ubuntu instances under same network. Let's call the first one `origin_node` and the second one `sibling_1` node.
-| Node | Job |
-| ----------- | ----------- |
-| origin_node | Genesis node will be created here, Admin node |
-| sibling_1 | Has permission to connect and write to the chain |
+
+- origin_node
+  - Genesis node will be created here, Admin node
+
+* sibling_1
+  - Has permission to connect and write to the chain
 
 For creating instance, please consider the following criteria
 
