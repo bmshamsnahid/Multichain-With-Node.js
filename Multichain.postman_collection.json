@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "2e3f58cf-11ae-4162-86f3-ad20f1dc5b08",
+		"name": "Multichain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "54.144.208.138:3000/get-data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "54.144.208.138:3000/get-data",
+					"host": [
+						"54",
+						"144",
+						"208",
+						"138"
+					],
+					"port": "3000",
+					"path": [
+						"get-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "54.144.208.138:3000/get-info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "54.144.208.138:3000/get-info",
+					"host": [
+						"54",
+						"144",
+						"208",
+						"138"
+					],
+					"port": "3000",
+					"path": [
+						"get-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "54.144.208.138:3000/get-write-data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "54.144.208.138:3000/get-write-data",
+					"host": [
+						"54",
+						"144",
+						"208",
+						"138"
+					],
+					"port": "3000",
+					"path": [
+						"get-write-data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
