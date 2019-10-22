@@ -199,14 +199,35 @@ multichain-cli my-blockchain
 
 Subscribe to the `stream`
 
-```
+```sh
 subscribe my-blockchain-stream true
 ```
 
 Now your data should be displayed
 
 ```sh
-liststreamitems my-blockchain
+liststreamitems my-blockchain-stream
+```
+
+You will get output something like this,
+
+```json
+[
+  {
+    "publishers": ["1aokp3bti15AuRs51wPemtBuiqAdRDFaGYnRQw"],
+    "keys": ["json"],
+    "offchain": false,
+    "available": true,
+    "data": {
+      "json": {
+        "myKey": "myValue"
+      }
+    },
+    "confirmations": 4,
+    "blocktime": 1571709550,
+    "txid": "transaction_id"
+  }
+]
 ```
 
 ## Wrap Up:
@@ -219,11 +240,8 @@ liststreamitems my-blockchain
 * Permissions: https://www.multichain.com/developers/permissions-management/
 * Runtime Parameters: https://www.multichain.com/developers/runtime-parameters/
 
-### To Do:
+### Exercise:
 
-- double check the content technical specification
-
-* (Should be removed after check) Do I have to configure ufw firewall in sibling_1
-* Create 3rd sibling with read permission and read chain
-* Create 4th sibling with write permission and verify chain
-* Integrate a express server
+- Create 2nd sibling with read permission and read chain
+- Create 3rd sibling with write permission and verify chain
+- Integrate a express server
