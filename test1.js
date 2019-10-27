@@ -16,6 +16,7 @@ multichain.getInfo((err, info) => {
 })
 
 
+// update security and ufw for port 8332
 // /root/.multichain/my-blockchain/multichain.conf should be
 // rpcuser=user
 // rpcpassword=password
