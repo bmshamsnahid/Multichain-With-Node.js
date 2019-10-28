@@ -1,68 +1,74 @@
-const express = require('express');
-const app = express();
-const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
+const { defaultRpcPort, hostAddress, user, pass } = require('./config/dev');
 
-app.get('/get-info', async (req, res) => {
-  const { err, stdout, stderr } = await exec(
-    'multichain-cli my-blockchain getinfo'
-  );
-
-  if (err) {
-    return res.send(err);
-  }
-
-  if (stdout) {
-    return res.send(stdout);
-  }
-
-  if (stderr) {
-    return res.send(stderr);
-  }
+let multiChainInstance = require('multichain-node')({
+  port: defaultRpcPort,
+  host: hostAddress,
+  user,
+  pass
 });
 
-app.get('/get-data', async (req, res) => {
-  await exec(
-    'multichain-cli my-blockchain subscribe my-blockchain-stream true'
+const getInfo = multiChain => {
+  multiChain.getInfo((err, info) => {
+    if (err) {
+      throw err;
+    }
+    console.log(info);
+  });
+};
+
+const publish = (multiChain, stream, key, newData) => {
+  multiChain.publish(
+    {
+      stream,
+      key,
+      data: {
+        json: newData
+      }
+    },
+    (err, info) => {
+      console.log('Response: ');
+      console.log(info);
+    }
   );
+};
 
-  const { err, stdout, stderr } = await exec(
-    'multichain-cli my-blockchain liststreamitems my-blockchain-stream'
+const getData = (
+  multiChain,
+  stream,
+  verbose = false,
+  count = 10,
+  localOrdering = false
+) => {
+  multiChain.listStreamItems(
+    {
+      stream,
+      verbose,
+      count,
+      'local-ordering': localOrdering
+    },
+    (err, info) => {
+      console.log('Response: ');
+      info.map(i => console.log(i));
+    }
   );
+};
 
-  if (err) {
-    return res.send(err);
-  }
+const stopMultiChain = multiChain => {
+  multiChain.stop();
+};
 
-  if (stdout) {
-    return res.send(stdout);
-  }
+const getRuntimeParams = multiChain => {
+  multiChainInstance.getRuntimeParams(console.log);
+};
 
-  if (stderr) {
-    return res.send(stderr);
-  }
-});
+const getBlockchainParams = multiChain => {
+  multiChainInstance.getBlockchainParams(console.log);
+};
 
-app.get('/get-write-data', async (req, res) => {
-  await exec(
-    'multichain-cli my-blockchain subscribe my-blockchain-stream true'
-  );
+getInfo(multiChainInstance);
 
-  const { err, stdout, stderr } = await exec(
-    'multichain-cli my-blockchain publish my-blockchain-stream "from node server" 48656C6C6F20576F726C64210A'
-  );
-
-  if (err) {
-    return res.send(err);
-  }
-
-  if (stdout) {
-    return res.send(stdout);
-  }
-
-  if (stderr) {
-    return res.send(stderr);
-  }
-});
-
-app.listen(3000, () => console.log('Server is up and running'));
+// update security and ufw for port 8332
+// /root/.multichain/my-blockchain/multichain.conf should be
+// rpcuser=user
+// rpcpassword=password
+// rpcallowip=0.0.0.0/0 // added this line
