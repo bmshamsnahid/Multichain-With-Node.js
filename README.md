@@ -1,4 +1,4 @@
-# Create your first permissioned blockchain platform in 30 minutes
+# Create your first permissioned blockchain
 
 [Multichain](https://www.multichain.com/) a is open source, bitcoin forked, permissioned blockchain solution.
 
